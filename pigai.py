@@ -65,8 +65,23 @@ def article_list(token):
     print(essay_id['data']['essaylist'][0]['title'])
     return(id)
 
-def edit_essay():
-    url = ''
+def edit_essay(token):
+    url = base_url + '?c=api&a=writeview&rid=1310780&eid=86114353&pigaimobile=1&pigaiversion=1.4.4&uid=13312451&' + token
+    data = {
+        'abctest':'1',
+        'MB_time':'1551877327',
+        'MB_version':'1.4.4',
+        'MB_os[android]':'true',
+        'MB_os[version]':'7.1.1',
+        'MB_os[isBadAndroid]':'false',
+        'MB_os[plus]':'true',
+        'MB_uuid':'864166039376763,864166039376771',
+        'MB_cid':'905ce29dbbc0ff14fab1ca7ea4469ab1',
+        'MB_token':'905ce29dbbc0ff14fab1ca7ea4469ab1',
+        'MB_wid':''
+    }
+    s = session.post(url,headers = headers,data=data)
 if __name__ == '__main__' :
     token = login()
     article_list(token)
+    edit_essay(token)
