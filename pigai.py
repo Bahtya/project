@@ -17,18 +17,7 @@ session=requests.session()
 
 def login():
     url = base_url + '?c=api&a=sentbase&action=login&key=SE9mpdwTPxyKGUvJb9vrVfYlwX803YcH&type=json&pigaimobile=1&pigaiversion=1.4.4&uid=13312451&token=600f8005baa69bc14a1e80de1664093c'
-    data = {'''
-        'c':'api',
-        'a':'sentbase',
-        'action':'login',
-        'key':'SE9mpdwTPxyKGUvJb9vrVfYlwX803YcH',
-        'type':'json',
-        'pigaimobile':'1',
-        'pigaiversion':'1.4.4',
-        'uid':'13312451',
-        'token':'b6fd89abcda87dc77293e701bb69f27e',
-        '''
-        
+    data = {  
         'name':'刘威',
         'email':'18699450605',
         'psw':'ailw1314.',
@@ -69,9 +58,15 @@ def article_list(token):
         'MB_token':'905ce29dbbc0ff14fab1ca7ea4469ab1',
         'MB_wid':'main'
     }
-    r = session.post(url,headers = headers,data = data)
-    print(r.text)
+    lists = session.post(url,headers = headers,data = data)
+    essay_id = lists.json()
+    id = essay_id['data']['essaylist'][0]['essay_id']
+    #print(essay_id['data']['essaylist'][1]['essay_id'])
+    print(essay_id['data']['essaylist'][0]['title'])
+    return(id)
 
+def edit_essay():
+    url = ''
 if __name__ == '__main__' :
     token = login()
     article_list(token)
