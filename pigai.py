@@ -60,28 +60,21 @@ def article_list(token):
     }
     lists = session.post(url,headers = headers,data = data)
     essay_id = lists.json()
-    id = essay_id['data']['essaylist'][0]['essay_id']
-    #print(essay_id['data']['essaylist'][1]['essay_id'])
+    id = essay_id['data']['essaylist'][0]['request_id']
+    print(essay_id['data']['essaylist'][0]['request_id'])
     print(essay_id['data']['essaylist'][0]['title'])
     return(id)
 
-def edit_essay(token):
-    url = base_url + '?c=api&a=writeview&rid=1310780&eid=86114353&pigaimobile=1&pigaiversion=1.4.4&uid=13312451&' + token
+def edit_essay(token,id):
+    url = base_url + '?c=api&a=essayadd&pigaimobile=1&pigaiversion=1.4.4&uid=13312451&' + token
+    text = "123"
     data = {
-        'abctest':'1',
-        'MB_time':'1551877327',
-        'MB_version':'1.4.4',
-        'MB_os[android]':'true',
-        'MB_os[version]':'7.1.1',
-        'MB_os[isBadAndroid]':'false',
-        'MB_os[plus]':'true',
-        'MB_uuid':'864166039376763,864166039376771',
-        'MB_cid':'905ce29dbbc0ff14fab1ca7ea4469ab1',
-        'MB_token':'905ce29dbbc0ff14fab1ca7ea4469ab1',
-        'MB_wid':''
+        'rid':id,
+        'content':text
     }
     s = session.post(url,headers = headers,data=data)
+
 if __name__ == '__main__' :
     token = login()
-    article_list(token)
-    edit_essay(token)
+    rid = article_list(token)
+    edit_essay(token,rid)
